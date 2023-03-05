@@ -37,5 +37,57 @@ d mode, sharing)
 3) run maven command   mvn -Pnative native:compile
 
 
+Need to install
+Tools/Utilities:
+
+Native Image – a technology to compile an application ahead-of-time into a native executable
+LLVM toolchain – a set of tools and APIs for compiling native programs to bitcode that can be executed with on the GraalVM runtime
+
+Check out https://www.graalvm.org/latest/docs/getting-started/linux/
+
+After numerious trails finally I got
+-rwxr-xr-x 1 root root   151049744 Mar  5 08:57 springboot3
+-rw-r--r-- 1 root root    47007749 Mar  5 08:55 springboot3-0.0.1-SNAPSHOT.jar
+-rw-r--r-- 1 root root      232739 Mar  5 08:55 springboot3-0.0.1-SNAPSHOT.jar.original
+
+
+The springboot3 is the native image
+
+However when I run it I got the below
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Liquibase failed to start because no changelog could be found at 'classpath:/db/changelog.yml'.
+
+Action:
+
+Make sure a Liquibase changelog is present at the configured path.
+
+
+Need to put directions to make GraalVM to be aware of the liquibase
+
+Let me do a walkaround to turn it off for now
+
+
+
+JVM Run
+tion$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-05T09:19:52.064-05:00  INFO 10659 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-05T09:19:52.070-05:00  INFO 10659 --- [           main] c.e.s.Springboot3demoApplication         : Started Springboot3demoApplication in 2.411 seconds (process running for 2.673)
+
+Native Run
+
+3demoApplication         : Started Springboot3demoApplication in 0.082 seconds (process running for 0.085)
+
+Seems I should just leverage https://www.graalvm.org/latest/docs/getting-started/container-images/ to do a two layers build
+
+
+
+
+
+
 
 

@@ -11,6 +11,8 @@ spring:
 
   liquibase:
     change-log: classpath:/db/changelog.yml
+    enabled: false
+
   jpa:
     spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
